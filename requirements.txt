@@ -1,0 +1,12 @@
+# Samuel Dunn,
+# CS320, POFIS.
+# This file specifies the python modules necessary to work on POFIS
+# as a developer.
+# You may quickly install these modules by running:
+# (sudo) python -m pip install -r requirements.txt
+
+# I recommend using a virtual enviroment. 
+
+cherrypy
+sphinx
+sphinx_rtd_theme
