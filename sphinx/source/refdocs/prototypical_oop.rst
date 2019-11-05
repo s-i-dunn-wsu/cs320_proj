@@ -31,7 +31,7 @@ In Python
 Clasical vs Prototypical
 -------------------------
 
-.. warn::
+.. warning::
     This is an advanced topic.
 
 There are two different types of OOP, classic and prototype.
@@ -57,7 +57,6 @@ In both these examples let `obj` be an instance of this class.
 
 Clasical:
 .. code-block::
-    :lineno:
 
     obj.x = 5; // pass: obj has attribute x.
     obj.y = 0; // pass: obj has attribute y.
@@ -65,7 +64,6 @@ Clasical:
 
 Prototypical:
 .. code-block::
-    :lineno:
 
     obj.x = 5; // pass
     obj.y = 0; // pass
