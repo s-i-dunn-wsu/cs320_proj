@@ -27,4 +27,5 @@ if __name__ == "__main__":
         author="Abdi Vicenciodelmoral, Andrew Cornish, Becca Daniels, Samuel Dunn",
         # include emails in the future.
         install_requires=dependencies
+        entry_points={'console_scripts': ['POFIS_quicklaunch=pofis:quicklaunch']}
     )
