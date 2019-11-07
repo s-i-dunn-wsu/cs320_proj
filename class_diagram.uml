@@ -1,0 +1,47 @@
+@startuml
+
+class AuthenticatorUI {
+    void submit_input()
+}
+
+class Authenticator {
+
+}
+
+class AuthenticationToken {
+    identiy : GUID
+    shelf_life : time_t
+}
+
+class ServerRoot {
+    static_content
+}
+
+class Editor {
+    user_input : String
+    bool submit_input_for_eval()
+}
+
+class RestrictedEvaluator {
+    bool evaluate_input(String)
+}
+
+class RecordsTracker {
+    void update_records()
+}
+
+class User {
+    token : AuthenticationToken
+    progress : map<LessonID, bool>
+}
+
+Editor -- RestrictedEvaluator
+User <.. AuthenticationToken
+
+ServerRoot -- AuthenticatorUI
+ServerRoot -- Editor
+AuthenticatorUI -- Authenticator
+AuthenticationToken *-- Authenticator
+User -- RecordsTracker
+RecordsTracker -- RestrictedEvaluator
+@enduml
