@@ -5,7 +5,7 @@ class AuthenticatorUI {
 }
 
 class Authenticator {
-
+    AuthenticationToken authenticate(string, string)
 }
 
 class AuthenticationToken {
@@ -42,6 +42,6 @@ ServerRoot -- AuthenticatorUI
 ServerRoot -- Editor
 AuthenticatorUI -- Authenticator
 AuthenticationToken *-- Authenticator
-User -- RecordsTracker
+RecordsTracker ^-- User
 RecordsTracker -- RestrictedEvaluator
 @enduml
