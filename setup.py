@@ -24,7 +24,7 @@ if __name__ == "__main__":
         version=version,
         packages=find_packages(),
         package_data=static_data,
-        author="Abdi Vicenciodelmoral, Andrew Cornish, Becca Daniels, Samuel Dunn",
+        author="Abdi Vicenciodelmoral, Andrew Cornish, Becca Daniel, Samuel Dunn",
         # include emails in the future.
         install_requires=dependencies
         entry_points={'console_scripts': ['POFIS_quicklaunch=pofis:quicklaunch']}
