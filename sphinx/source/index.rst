@@ -12,6 +12,9 @@ Welcome to POFIS's documentation!
 
    refdocs/index
 
+Interactive session login: here_
+
+.. _here: /login
 
 Indices and tables
 ==================
