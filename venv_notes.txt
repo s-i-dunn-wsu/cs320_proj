@@ -1,0 +1,51 @@
+sudo apt get install python3-venv
+
+// can create the venv anywhere
+python3 -m venv <name of virtual env> // creates virtual environment
+
+// in the same directory as your venv
+ls <name of env>/bin // you should see an activate file
+
+source <name of env>/bin/activate // this will put you in the virtual env
+
+// once you're in your env you don't have to specify python3, you can just do python
+
+// cd into the cs320_proj
+
+pip install -r requirements.txt // pip reads the file and installs them in the venv
+
+
+open browser  > ctrl o > navigate to project > build/html > open index.html
+
+making another .rst file will make another page > put them under refdocs folder > follow the template
+
+
+Creating/Editing a new page:
+refdocs: cs320_proj > sphnix > source > refdocs > create new file > nameOfFile.rst
+
+** easiest to copy/paste from existing template to follow the form
+
+**IMPORTANT**
+open > index.rst (which is in the refdocs file from above) > add name of .rst file to the list of file names
+
+// to see the site
+cd sphinx
+make clean; make html // creates the website
+
+
+Git for VS Code: 
+Source Control Tab (Left hand side menu) > press + to commit changes > ... (more actions menu) > push
+
+
+
+deactivte // exits out of env
+
+
+** do not murder env until you're completely done with the project - deactivate instead
+
+
+
+other:
+// anything before the ; if it doesn't build what's after the ; will still build
+// stuff1 && stuff2 -- if stuff1 doesn't build then stuff2 won't build  
+make clean; make html && execute whatever

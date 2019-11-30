@@ -10,5 +10,5 @@ with Python.
 
    prototypical_oop
    importing
-   nonsense
+   syntax
    functions
