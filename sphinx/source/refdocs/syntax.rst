@@ -41,28 +41,6 @@ For multiple line comments, PEP 8 suggests using multiple hash marks #
 
 `Commenting Guide`_
 
-Logical Operators
--------------------
-Used to combine conditional statements:
-
-**and** - all statements need to be true to return True.
-
-.. code-block:: python
-
-    if x < 5 and x > 1:    # runs if less than 5 and more than 1
-
-**or** - all statements need to be false to evaluate to False.
-
-.. code-block:: python
-
-    if x >= 2 or y <= 2:    # runs if one of these is true
-
-**not** - switches the truth value.
-
-.. code-block:: python
-
-    if not(x < 5 and x > 1):    # runs if not between 1 and 5
-
 Data Types
 -------------------
 In Python you are not required to specify the data type of your variables.
@@ -91,3 +69,4 @@ External References
 ---------------------
 .. _`Commenting Guide`: https://realpython.com/python-comments-guide/
 .. links to sources outside of POFIS
+
