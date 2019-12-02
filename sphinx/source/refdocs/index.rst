@@ -9,7 +9,10 @@ with Python.
    :caption: Contents:
 
    prototypical_oop
-   importing
    syntax
    operators
    functions
+   importing
+   iterators
+   generators
+   zen_of_python

@@ -53,11 +53,11 @@ Naming Variables
 
 .. code-block:: python
 
-    variableName = 1;
-    variable_name = "String";
-    variable_name2 = 'String';
-    variableName3 = 4.5;
-    _variable = [1, 2, 3, 4];
+    variableName = 1
+    variable_name = "String"
+    variable_name2 = 'String'
+    variableName3 = 4.5
+    _variable = [1, 2, 3, 4]
 
 See Also
 -----------

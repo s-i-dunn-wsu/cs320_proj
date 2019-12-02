@@ -44,6 +44,31 @@ deactivte // exits out of env
 ** do not murder env until you're completely done with the project - deactivate instead
 
 
+------------------------extra things from Sam----------------------------------
+@cs320 I just pushed a few things to the main repository on master branch.
+
+
+you can now run setup.py to build a wheel file, wheel files are the current standard for distributing libraries in python.
+the setup script will handle building a fresh copy of the sphinx reference documents.
+
+If you want to test stuff you can run ./qls.py (qls is short for quick launch site)
+this will launch pofis on port 8080.
+the code that mounts the static directories is smart enough to look for the sphinx build folder if it can't find the refdocs in the 'installation' directory. (as in, where it would be put during a pip install),
+so you can just: run make html in the sphinx directory, then run qls.py in the base project directory
+then navigate to localhost:8080 in a browser
+it should automatically redirect you to http://localhost:8080/refdocs/index.html
+I haven't yet tested it, but it should be smart enough to handle changes in the sphinx build directory while the webserver is up
+so you can leave it running and rebuild the sphinx documents and refresh the page
+the only thing that may be getting in the way is a browser cache. Otherwise you should get served the new content.
+if you want to test behavior at installation:
+run python setup.py bdist_wheel, this will build a new .whl file in dist
+use pip to install that wheel file:
+pip install dist/<that wheel file>
+cd somewhere else to be sure you load the install module instead of the local directory
+then try importing pofis:
+import pofis
+then do whatever testing you need to do
+
 
 other:
 // anything before the ; if it doesn't build what's after the ; will still build
