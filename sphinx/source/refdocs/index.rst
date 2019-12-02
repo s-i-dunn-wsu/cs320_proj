@@ -15,4 +15,6 @@ with Python.
    importing
    iterators
    generators
+   Type_Hinting
    zen_of_python
+
