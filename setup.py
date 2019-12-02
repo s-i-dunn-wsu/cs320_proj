@@ -102,7 +102,10 @@ def main():
     # 2) copy refdocs into pofis/site
     # since we're running a new sphinx build every packaging, lets make sure the old sphinx build is
     # cleared out of location.
-    shutil.rmtree(os.path.join('pofis', 'site', 'refdocs'))
+    try:
+        shutil.rmtree(os.path.join('pofis', 'site', 'refdocs'))
+    except OSError:
+        pass # not a big deal if its not there
     # then copy the new one in.
     shutil.copytree(os.path.join('sphinx', 'build', 'html'), os.path.join('pofis', 'site', 'refdocs'))
 
