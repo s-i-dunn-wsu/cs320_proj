@@ -10,7 +10,7 @@ def main():
     from .site import Root, get_cherrypy_config
 
     cherrypy.tree.mount(Root(), '/', config=get_cherrypy_config())
-
+    cherrypy.config.update({'server.socket_host': '0.0.0.0'})
     cherrypy.engine.start()
     cherrypy.engine.block()
 

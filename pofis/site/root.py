@@ -25,6 +25,17 @@ class Root(object):
         return "Placeholder"
 
     @cherrypy.expose
+    def suites(self, **params):
+        """
+        Loads the suite progress for the logged in user.
+        """
+
+        if not cherrypy.request.login:
+            raise cherrypy.HTTPError(401)
+
+        return "You made it!"
+
+    @cherrypy.expose
     def suite(self, id=0, user_auth=None):
         """
         """

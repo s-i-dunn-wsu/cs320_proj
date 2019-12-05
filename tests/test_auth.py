@@ -1,6 +1,6 @@
 import unittest
 import time
-from pofis.auth.authenticator import UsernameTaken, AuthenticationToken, Authenticator
+from pofis.auth.authenticator import UsernameTaken, Authenticator
 
 class TestAuthenticator(unittest.TestCase):
     @classmethod
@@ -30,16 +30,6 @@ class TestAuthenticator(unittest.TestCase):
 
         with self.assertRaises(UsernameTaken, msg='Raises an exception with mismatching passwords'):
             Authenticator().create_user('test', 'different password')
-
-    def test_token_timeout(self):
-        """
-        """
-        token = Authenticator().authenticate('test', 'super secure')
-        token._last_used = time.time() - 898
-
-        time.sleep(2)
-
-        self.assertFalse(token.is_still_valid)
 
     def test_user_removal(self):
         """

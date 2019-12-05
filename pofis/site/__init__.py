@@ -8,6 +8,7 @@ import os
 # aggregate top level entities from submodules.
 from .root import Root
 from .refdoc_compat import find_refdoc_dir
+from ..auth import Authenticator
 
 
 # Lets go ahead and define the config dict and related helper functions here:
@@ -17,7 +18,12 @@ def get_cherrypy_config():
     """
     cp_conf = {
         '/' : {
-
+        },
+        '/suites' : {
+            'tools.auth_basic.on': True,
+            'tools.auth_basic.realm': 'pofis',
+            'tools.auth_basic.checkpassword': Authenticator().cp_authenticate,
+            'tools.auth_basic.accept_charset': 'UTF-8'
         },
         '/refdocs' : {
             'tools.staticdir.on': True,

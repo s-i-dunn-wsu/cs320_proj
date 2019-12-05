@@ -1,10 +1,10 @@
 # Samuel Dunn
 # CS 320, Fall 2019
 
-from .auth_token import AuthenticationToken
 from hashlib import md5
 import os
 import json
+import cherrypy
 
 class UsernameTaken(Exception): pass
 
@@ -46,34 +46,43 @@ class Authenticator(object):
 
         return username in user_list
 
+    def get_token_active_for_user(self, username):
+        """
+        """
 
-    def authenticate(self, user, pswd) -> AuthenticationToken:
+    def cp_authenticate(self, realm, user, pswd):
+        """
+        This is a mere passthrough to self.authenticate, which doens't care
+        for the 'realm' parameter.
+        """
+        return self.authenticate(user, pswd)
+
+    def authenticate(self, user, pswd):
         """
         Verifies the users credentials (or at least it would)
         and then supplies an Authentication Token that can be
         used to access user associations.
         """
         if not self.check_for_user_exist(user):
-            return None # easy out.
+            return False # easy out.
 
         # Again, we're not here to be serious, we just need a
         # demoable way to track and associate data to users.
         u, p, c = self._get_checksums(user, pswd)
 
-        group_folder = os.path.join(self._here, 'users', c)
+        user_folder = os.path.join(self._here, 'users', u)
+        if os.path.exists(user_folder):
+            with open(os.path.join(user_folder, '.cred1')) as fd:
+                if fd.read() != p:
+                    return False
+            with open(os.path.join(user_folder, '.cred2')) as fd:
+                if fd.read() != c:
+                    return False
 
-        user_folder = os.path.join(group_folder, u)
-        user_cred = os.path.join(user_folder, '.cred')
-        if os.path.exists(group_folder) and os.path.isdir(group_folder):
-            if os.path.exists(user_folder) and os.path.isdir(user_folder):
-                if os.path.exists(user_cred) and os.path.isfile(user_cred):
-                    with open(user_cred, 'r') as fd:
-                        stored_p_md5 = fd.read()
+            # if we made it here, then both cred1 and cred2 checked out
+            return True
 
-                    if stored_p_md5 == p:
-                        return AuthenticationToken(u, user_folder)
-
-        return None # did not find matching credentials.
+        return False # did not find matching credentials.
 
     def create_user(self, user, pswd):
         """
@@ -84,17 +93,18 @@ class Authenticator(object):
 
         u, p, c = self._get_checksums(user, pswd)
 
-        # Ensure the user doesn't already exist
-        group_folder = os.path.join(self._here, 'users', c)
-        user_folder = os.path.join(group_folder, u)
-        if os.path.exists(os.path.join(group_folder, u)):
-            raise UsernameTaken()
+        user_folder = os.path.join(self._here, 'users', u)
+        # Ensure there isn't a conflict with the md5
+        if os.path.exists(user_folder):
+            raise cherrypy.HTTPError(500, "Stale records or MD5 checksum clash. :(")
 
         # would have raised an exception already if it existed.
         os.makedirs(user_folder)
 
-        with open(os.path.join(user_folder, '.cred'), 'w') as fd:
+        with open(os.path.join(user_folder, '.cred1'), 'w') as fd:
             fd.write(p)
+        with open(os.path.join(user_folder, '.cred2'), 'w') as fd:
+            fd.write(c)
 
         # TODO: thread-safen this part.
         # Now update the manifest file
@@ -106,18 +116,16 @@ class Authenticator(object):
             # write back to disk.
             json.dump(user_dict, fd)
 
-
-
     def delete_user(self, user, pswd):
         """
         .. warning::
             This method exists essentially entirely for test purposes.
             steer clear of its use outside of test cases.
         """
-        token = self.authenticate(user, pswd)
-        if token:
+        u, _, _ = self._get_checksums(user, pswd)
+        if self.authenticate(user, pswd):
             import shutil
-            shutil.rmtree(token.user_dir)
+            shutil.rmtree(os.path.join(self._here, 'users', u))
 
             # TODO: make thread (and multiprocess) safe
             with open(self._user_manifest_path) as fd:
