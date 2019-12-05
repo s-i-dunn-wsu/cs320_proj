@@ -7,14 +7,19 @@ from jinja2 import Environment, FileSystemLoader
 
 try:
     from ..test_suite.tsf import TestSuiteFactory
+    from .suite_manager import SuiteManager
 except ImportError:
     from pofis.test_suite.tsf import TestSuiteFactory
+    from pofis.site.suite_manager import SuiteManager
 
 class Root(object):
     def __init__(self):
         here = os.path.dirname(os.path.abspath(__file__))
         template_dir = os.path.join(here, 'templates')
         self.env = Environment(loader=FileSystemLoader(template_dir))
+
+        self.suites = SuiteManager(self.env)
+        self.suites.expose = True
 
     @cherrypy.expose
     def index(self):
@@ -24,16 +29,6 @@ class Root(object):
     def login(self):
         return "Placeholder"
 
-    @cherrypy.expose
-    def suites(self, **params):
-        """
-        Loads the suite progress for the logged in user.
-        """
-
-        if not cherrypy.request.login:
-            raise cherrypy.HTTPError(401)
-
-        return "You made it!"
 
     @cherrypy.expose
     def suite(self, id=0, user_auth=None):

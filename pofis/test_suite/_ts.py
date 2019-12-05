@@ -13,14 +13,35 @@ class TestSuite(object):
         """
         NOTE: do not use directly, use TestSuiteFactory instead.
         """
-        self._prompt = "#this is some example python code.\nimport random\nfoo=lambda n: random.randint(1, n)\n"
+        self._prompt = ""
+        self._help_text = ""
+        self._lang = 'python'
+        self._criteria = []
 
-    def evaluate_runtime(self, module):
+    def evaluate_runtime(self, module, out, err):
         """
         Evaluates the contents of the given module (executed via runpy, probably)
         against thist TestSuite's configured criteria.
+
+        :returns: tuple, the first entry is pass/fail, the second is the cause of failure should the eval fail.
         """
+        for eval_string in self._criteria:
+            if not eval(eval_string):
+                return False, eval_string
+
+        return True, None
 
     @property
     def prompt(self):
         return self._prompt
+
+    @property
+    def help_text(self):
+        return self._help_text
+
+    @property
+    def lang(self):
+        """
+        Determines which language mode to put the ACE editor in
+        """
+        return self._lang

@@ -6,19 +6,34 @@
         #editor {
             position: absolute;
             top: 0;
-            right: 0;
+            right: 20%;
             bottom: 0;
             left: 0;
+        }
+        #helpbox {
+            color: white;
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 80%;
+            bottom: 0;
+            background-color: #2b2c30;
+            padding:1em;
         }
     </style>
 </head>
 <body>
     <div id="editor">{{ testsuite.prompt }}</div>
+    <div id="helpbox">
+        <div>{{ testsuite.help_text }}</div>
+    </div>
+
     <script src="/ace/ace.js" type="text/javascript" charset="utf-8"></script>
     <script>
         var editor = ace.edit("editor");
         editor.setTheme("ace/theme/monokai");
-        editor.session.setMode("ace/mode/python");
+        editor.session.setMode("ace/mode/{{testsuite.lang}}");
     </script>
+
 </body>
 </html>

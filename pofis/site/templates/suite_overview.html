@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interactive Suite List</title>
+    <style>
+    .mainbody {
+        left: 20%;
+        right: 20%;
+    }
+    .status_complete {
+        color: green;
+    }
+    td {
+        align-content: center;
+    }
+    </style>
+</head>
+<body>
+    <div class="mainbody">
+        <table align="center">
+            <tr><td><h2>Welcome {{username}}!</h2></td></tr>
+            <tr><td><h4>Here is the current status of your POFIS progress</h4></td></tr>
+        </table>
+        <table align="center">
+            <tr>
+                <th>#</th>
+                <th>Suite</th>
+                <th>Status</th>
+            </tr>
+            {% for id, suite, status in suite_data %}
+            <tr>
+                <td>{{ id }}</td>
+                <td>
+                    <a href="/suites/take_suite?suite_num={{ id }}">{{ suite }}</a>
+                </td>
+                {% if status %}
+                <td class="status_complete">Complete!</td>
+                {% else %}
+                <td>Not Complete</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>

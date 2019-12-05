@@ -1,0 +1,20 @@
+{
+    "0": {
+            "name": "lorem ipsum",
+            "prog_lang": "text",
+            "criteria": []
+        },
+    "1": {
+            "name": "demo",
+            "criteria": []
+        },
+    "2": {
+            "name": "Variables",
+            "criteria": [
+                "'x' in module",
+                "module['x'] == 5",
+                "'y' in module",
+                "module['y'] == 7"
+            ]
+        }
+}
