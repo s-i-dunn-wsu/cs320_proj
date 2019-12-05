@@ -20,6 +20,10 @@
             background-color: #2b2c30;
             padding:1em;
         }
+        #reset_button {
+            color: red;
+            width: 100%;
+        }
     </style>
 
     <!-- Set up AJAX nonseense -->
@@ -28,17 +32,27 @@
         $(document).ready(function() {
             var editor = ace.edit('editor');
             $("#save_button").click(function(event) {
-            $.ajax({
-                type: "POST",
-                url: "/suites/save?suite_id={{test_id}}",
-                data: {"user_code": editor.getValue()}
-            })
-            .done(function() {
-                alert("Saved!");
+                $.ajax({
+                    type: "POST",
+                    url: "/suites/save?suite_id={{test_id}}",
+                    data: {"user_code": editor.getValue()}
+                })
+                .done(function() {
+                    alert("Saved!");
+                });
+                event.preventDefault();
             });
-            event.preventDefault();
+            $("#reset_button").click(function() {
+                // Ideally this would prompt the user for an 'are you sure' here
+                $.ajax({
+                    type: "DELETE",
+                    url: "/suites/delete?suite_id={{test_id}}",
+                    success: function() {
+                        window.location.reload();
+                    }
+                });
+            });
         });
-        })
     </script>
 
 </head>
@@ -51,6 +65,18 @@
             <tr>
                 <td><button id="submit_button">Submit!</button></td>
                 <td><button id="save_button">Save!</button></td>
+            </tr>
+        </table>
+        <table width="100%">
+            <tr><td>
+                <form action="/suites" method="GET">
+                <button id="quit_button" style="width:100%">Quit</button>
+                </form>
+            </td></tr>
+            <tr>
+                <td>
+                    <button id="reset_button">Reset</button>
+                </td>
             </tr>
         </table>
     </div>

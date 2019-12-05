@@ -6,6 +6,7 @@ from .tsf import TestSuiteFactory
 
 class ProgressTracker(object):
     def __init__(self, username):
+        self._username = username
         self._user_dir = Authenticator().get_user_data_dir(username)
         self._user_prog_file = os.path.join(self._user_dir, 'completed_suites.json')
         if not os.path.exists(self._user_prog_file):
@@ -45,6 +46,12 @@ class ProgressTracker(object):
         """
         with open(os.path.join(self._user_dir, f'{suite_id}.txt'), 'w') as fd:
             fd.write(user_code)
+
+    def delete_progress(self, suite_id):
+        try:
+            os.remove(os.path.join(self._user_dir, f'{suite_id}.txt'))
+        except OSError:
+            print(f"Attempted to delete suite {suite_id} for user {self._username} but failed!")
 
     def update(self, test_suite):
         """

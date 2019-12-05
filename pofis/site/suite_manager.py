@@ -41,3 +41,10 @@ class SuiteManager(object):
         print(f"{cherrypy.request.login} saved their progress for suite: {suite_id}")
         user_progress = ProgressTracker(cherrypy.request.login)
         user_progress.save_progress(suite_id, user_code)
+
+    @cherrypy.expose
+    def delete(self, suite_id):
+        """
+        """
+        user_progress = ProgressTracker(cherrypy.request.login)
+        user_progress.delete_progress(suite_id)
