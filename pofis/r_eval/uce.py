@@ -1,5 +1,6 @@
 # Samuel Dunn
 # CS 320, Fall 2019
+import sys
 
 class UserCodeEvaluator(object):
     """
@@ -55,8 +56,6 @@ class UserCodeEvaluator(object):
 
             # Run the code with runpy to evaluate the content
             with _UserSpaceContext():
-                with open('user_code.txt', 'w') as fd:
-                    fd.write(tweaked_code)
                 module_data = runpy.run_path(code_path)
 
             # gather output file content:
@@ -93,7 +92,13 @@ class _UserSpaceContext(object):
 
         self._builtins_state = {k: v for k, v in __builtins__.items()}
 
-    def __exit__(self):
+    def __exit__(self, *args, **kwargs):
+        # this part seems weird, and it is,
+        # but even though the code is present in the safe_eval template
+        # these don't seem to be closed properly:
+        sys.stdout.close()
+        sys.stderr.close()
+
         sys.stdout = self._stdout
         sys.stderr = self._stderr
         sys.stdin = self._stdin
