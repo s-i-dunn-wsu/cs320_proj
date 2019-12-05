@@ -13,10 +13,11 @@ class TestSuite(object):
         """
         NOTE: do not use directly, use TestSuiteFactory instead.
         """
-        self._prompt = ""
+        self._body = ""
         self._help_text = ""
         self._lang = 'python'
-        self._criteria = []
+        self._criteria = [],
+        self._id = 0
 
     def evaluate_runtime(self, module, out, err):
         """
@@ -32,8 +33,8 @@ class TestSuite(object):
         return True, None
 
     @property
-    def prompt(self):
-        return self._prompt
+    def body(self):
+        return self._body
 
     @property
     def help_text(self):

@@ -4,6 +4,7 @@
 # This module defines all purely-site based functionality for POFIS
 
 import os
+import cherrypy
 
 # aggregate top level entities from submodules.
 from .root import Root
@@ -19,6 +20,11 @@ def get_cherrypy_config():
     cp_conf = {
         '/' : {
         },
+        '/login' : {
+            'tools.auth_basic.on': True,
+            'tools.auth_basic.realm': 'pofis',
+            'tools.auth_basic.checkpassword': Authenticator().cp_authenticate,
+            'tools.auth_basic.accept_charset': 'UTF-8'},
         '/suites' : {
             'tools.auth_basic.on': True,
             'tools.auth_basic.realm': 'pofis',

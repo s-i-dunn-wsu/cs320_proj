@@ -21,11 +21,38 @@
             padding:1em;
         }
     </style>
+
+    <!-- Set up AJAX nonseense -->
+    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var editor = ace.edit('editor');
+            $("#save_button").click(function(event) {
+            $.ajax({
+                type: "POST",
+                url: "/suites/save?suite_id={{test_id}}",
+                data: {"user_code": editor.getValue()}
+            })
+            .done(function() {
+                alert("Saved!");
+            });
+            event.preventDefault();
+        });
+        })
+    </script>
+
 </head>
 <body>
-    <div id="editor">{{ testsuite.prompt }}</div>
+    <div id="editor">{{ testsuite.body }}</div>
     <div id="helpbox">
         <div>{{ testsuite.help_text }}</div>
+        <br>
+        <table align="center">
+            <tr>
+                <td><button id="submit_button">Submit!</button></td>
+                <td><button id="save_button">Save!</button></td>
+            </tr>
+        </table>
     </div>
 
     <script src="/ace/ace.js" type="text/javascript" charset="utf-8"></script>

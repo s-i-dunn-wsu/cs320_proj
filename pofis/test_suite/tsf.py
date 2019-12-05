@@ -44,10 +44,11 @@ class TestSuiteFactory(object):
             return None
 
         ts = TestSuite()
+        ts._id = suite_id
 
         # load the prompt string, stick to english locale for now.
         with open(os.path.join(self._here, 'prompt_strings', 'en', f'{suite_id}.txt')) as fd:
-            ts._prompt = fd.read()
+            ts._body = fd.read()
 
         # Now load and assign the test suite name and criteria.
         with open(os.path.join(self._here, 'suite_data.json')) as fd:
@@ -56,5 +57,8 @@ class TestSuiteFactory(object):
 
             if 'prog_lang' in self._suite_data[suite_id]:
                 ts._lang = self._suite_data[suite_id]['prog_lang']
+
+            if 'help_text' in self._suite_data[suite_id]:
+                ts._help_text = self._suite_data[suite_id]['help_text']
 
         return ts

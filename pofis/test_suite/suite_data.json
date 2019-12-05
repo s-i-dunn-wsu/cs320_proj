@@ -6,6 +6,7 @@
         },
     "1": {
             "name": "demo",
+            "help_text": "In this area we'll deliver prompts and helpful tips. Please read the content of this form carefully to proceed.",
             "criteria": []
         },
     "2": {

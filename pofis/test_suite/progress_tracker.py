@@ -31,3 +31,23 @@ class ProgressTracker(object):
 
         with open(self._user_prog_file, 'w') as fd:
             json.dump(completed_suites, fd)
+
+    def has_progress(self, suite_id):
+        """
+        Returns a boolean to indicate if the user has progress on this particular suite.
+        """
+        return f"{suite_id}.txt" in os.listdir(self._user_dir)
+
+
+    def save_progress(self, suite_id, user_code):
+        """
+        Saves the users current progress so it can be restored later.
+        """
+        with open(os.path.join(self._user_dir, f'{suite_id}.txt'), 'w') as fd:
+            fd.write(user_code)
+
+    def update(self, test_suite):
+        """
+        """
+        with open(os.path.join(self._user_dir, f'{test_suite._id}.txt')) as fd:
+            test_suite._body = fd.read()

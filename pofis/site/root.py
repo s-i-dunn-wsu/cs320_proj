@@ -27,8 +27,9 @@ class Root(object):
 
     @cherrypy.expose
     def login(self):
-        return "Placeholder"
-
+        # The user successfully logged in (otherwise they'd have gotten a 401)
+        # Lets just return them to where they were
+        raise cherrypy.HTTPRedirect('/')
 
     @cherrypy.expose
     def suite(self, id=0, user_auth=None):
@@ -44,3 +45,4 @@ class Root(object):
         template = self.env.get_template('suite.html')
 
         return template.render(testsuite = ts)
+
