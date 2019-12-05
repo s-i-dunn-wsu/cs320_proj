@@ -1,0 +1,14 @@
+import sys
+import json
+
+def foo():
+    print("foo was called")
+
+def throws_exception_on_x_eq_13(x):
+    if x == 13:
+        raise ValueError("Can't say I didn't warn you")
+
+x = 1
+y = 45
+z = 2 * x + y
+foo()

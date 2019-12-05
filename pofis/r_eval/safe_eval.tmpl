@@ -1,0 +1,62 @@
+# CS 320: POFIS
+# Portions of this file are supplied by POFIS users,
+# the rest are supplied by a POFIS safe-eval templates.
+
+# First lets take a list of all items in globals() (this comes in to pickling later)
+globals()['!!at launch manifest!!'] = [x for x in globals()]
+
+# Then we need to patch in some logging mechanisms.
+import sys
+sys.stdout = open('{out_file_path}', 'w')
+sys.stderr = open('{err_file_path}', 'w')
+del sys
+
+# stash `open`
+globals()['!!open!!'] = open
+
+# Next: we need to disable the user's ability to adjust
+# where printing goes to. (sorry user)
+import functools
+@functools.wraps(print)
+def print_wrapper(*args, **kwargs):
+{indent}if 'file' in kwargs:
+{indent}{indent}del kwargs['file']
+{indent}globals()['!!print!!'](*args, **kwargs)
+
+globals()['!!print!!'] = print
+print = print_wrapper
+
+del functools
+
+# We'll use magic mock to safen everything
+from unittest.mock import MagicMock
+
+
+# Replace things on the blacklist with magic mocks.
+
+for attr in {blacklist}:
+{indent}try:
+{indent}{indent}globals()[f'!!{{attr}}!!'] = getattr(__builtins__, attr)
+{indent}{indent}setattr(__builtins__, attr, MagicMock())
+{indent}except AttributeError:
+{indent}{indent}globals()[f'!!{{attr}}!!'] = __builtins__[attr]
+{indent}{indent}__builtins__[attr] = MagicMock()
+
+# with __import__ replaced, literally any import attempt will now return a magic mock object. GLHF
+
+# At this point functionality should be stripped and
+# most extraenous symbols cleaned up or obscured from
+# direct access.
+
+# It is now safe to attempt running the user's code.
+try:
+{user_code}
+except:
+{indent}raise
+finally:
+{indent}# Close logging handles
+{indent}sys.stderr.close()
+{indent}sys.stdout.close()
+{indent}# Restore things that were hidden away from the user.
+{indent}for attr in {blacklist}:
+{indent}{indent}globals()[attr] = globals()[f'!!{{attr}}!!']
