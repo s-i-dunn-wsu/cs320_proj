@@ -46,9 +46,13 @@ class Authenticator(object):
 
         return username in user_list
 
-    def get_token_active_for_user(self, username):
-        """
-        """
+    def get_user_data_dir(self, username):
+        if not self.check_for_user_exist(username):
+            return None
+
+        u, _, _ = self._get_checksums(username, 'unused')
+
+        return os.path.join(self._here, 'users', u)
 
     def cp_authenticate(self, realm, user, pswd):
         """
