@@ -13,8 +13,9 @@ with Python.
    operators
    functions
    importing
+   inheritance
    iterators
    generators
    Type_Hinting
    zen_of_python
-
+   
