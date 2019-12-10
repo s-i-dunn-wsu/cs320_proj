@@ -18,4 +18,3 @@ with Python.
    generators
    Type_Hinting
    zen_of_python
-   

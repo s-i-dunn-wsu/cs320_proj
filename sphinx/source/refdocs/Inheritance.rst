@@ -1,5 +1,5 @@
 Inheritance
-==============
+====================
 
 Inheritance is a feature in object oriented programming, which allows the us to define a class that inherits all the methods and properties from another class.
 
@@ -31,12 +31,12 @@ The code above creates a class called Vehicle, which will act as the base class.
 
 
 Derived Classes
---------------
+-----------------------
 Derived or chile class are classes that will inherit from the base class. That means that each child class will be able to make use of the methods and variables of the parent class.
 
 
 Creating a Derived Class
---------------
+---------------------------
 .. code-block:: python
 
     class Car(Vehicle):
@@ -51,12 +51,12 @@ Creating a Derived Class
 With derived classes, we can choose to add more methods, override existing parent methods, or simply accept the default parent methods with the **pass** keyword.
 
 Method Overrriding
--------------------
+-----------------------
 Method overriding is a concept of object oriented programming that allows us to change the implementation of a function in the derived class that is defined in the base class. 
 It is the ability of a derived class to change the implementation of any method which is already provided by one of its base class.
 
 Overide a method
---------------
+--------------------
 .. code-block:: python
 
     class Vehicle(object):
@@ -87,7 +87,7 @@ The method accelerates() now prints a different string than the one in the Vehic
 
 
 Citations
-----------
+---------------
 
 https://python101.pythonlibrary.org/chapter11_classes.html
 
