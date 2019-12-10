@@ -18,8 +18,6 @@ def get_cherrypy_config():
     Returns a config dict suitable to pass to cherrypy at tree-mount-time
     """
     cp_conf = {
-        '/' : {
-        },
         '/login' : {
             'tools.auth_basic.on': True,
             'tools.auth_basic.realm': 'pofis',
