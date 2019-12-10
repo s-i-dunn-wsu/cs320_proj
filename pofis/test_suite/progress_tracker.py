@@ -20,7 +20,7 @@ class ProgressTracker(object):
             completed_suites = json.load(fd)
 
         for suite_id in TestSuiteFactory().suite_ids():
-            yield (suite_id, TestSuiteFactory().get_suite_name(suite_id), str(suite_id) in completed_suites)
+            yield (suite_id, TestSuiteFactory().get_suite_name(suite_id), str(suite_id), TestSuiteFactory().get_suite_refdoc(suite_id) in completed_suites)
 
     def mark_passed(self, suite_num: int):
         """
