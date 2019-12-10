@@ -16,6 +16,8 @@
                 "module['x'] == 5",
                 "'y' in module",
                 "module['y'] == 7"
-            ]
+            ],
+            "Refdoc_Href": "/refdocs/refdocs/syntax.html"
         }
+
 }

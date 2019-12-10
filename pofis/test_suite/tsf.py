@@ -37,6 +37,18 @@ class TestSuiteFactory(object):
         if str(suite_id) in self._suite_data:
             return self._suite_data[str(suite_id)]['name']
 
+    def get_suite_refdoc(self, suite_id) -> str:
+        """
+        Returns the href to the reference document most closely associated with this 
+        test suite (tutorial)
+        """
+        if suite_id in self._suite_data:
+            print(f"Have suite: {suite_id}")
+            if 'Refdoc_Href' in self._suite_data[suite_id]:
+                href = self._suite_data[suite_id]['Refdoc_Href']
+                print(f"suite {suite_id} has 'Refdoc_Href': as {href}")
+                return href
+
     def get_suite(self, suite_id) -> TestSuite:
         """
         """

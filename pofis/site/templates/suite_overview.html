@@ -27,11 +27,18 @@
                 <th>Tutorial</th>
                 <th>Status</th>
             </tr>
-            {% for id, suite, status in suite_data %}
+            {% for id, suite, status, refdoc_href in suite_data %}
             <tr>
                 <td>{{ id }}</td>
                 <td>
                     <a href="/suites/take_suite?suite_num={{ id }}">{{ suite }}</a>
+                </td>
+                <td>
+                    {% if refdoc_href %}
+                    <a href='{{ refdoc_href }}'>
+                        See Here For More...
+                    </a>
+                    {% endif %}
                 </td>
                 {% if status %}
                 <td class="status_complete">Complete!</td>
