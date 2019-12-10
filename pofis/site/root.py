@@ -32,7 +32,7 @@ class Root(object):
         raise cherrypy.HTTPRedirect('/')
 
     @cherrypy.expose
-    def suite(self, id=0, user_auth=None):
+    def suite(self, id=0):
         """
         """
         if not isinstance(id, int):
