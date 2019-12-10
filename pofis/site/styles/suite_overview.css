@@ -1,0 +1,10 @@
+.mainbody {
+    left: 20%;
+    right: 20%;
+}
+.status_complete {
+    color: green;
+}
+td {
+    align-content: center;
+}
