@@ -1,5 +1,6 @@
 Inheritance
-==========
+==============
+
 Inheritance is a feature in object oriented programming, which allows the us to define a class that inherits all the methods and properties from another class.
 
 The class from which a class inherits is called the **base class** or superclass. A class which inherits from a base class is called a **derived class** or subclass. 
