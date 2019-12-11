@@ -22,6 +22,8 @@
         }
         #reset_button {
             color: red;
+        }
+        .action_button {
             width: 100%;
         }
     </style>
@@ -82,21 +84,17 @@
     <div id="helpbox">
         <div>{{ tutorial.help_text }}</div>
         <br>
-        <table align="center">
-            <tr>
-                <td><button id="submit_button">Submit!</button></td>
-                <td><button id="save_button">Save!</button></td>
-            </tr>
-        </table>
         <table width="100%">
+            <tr><td><button class="action_button" id="submit_button">Submit!</button></td></tr>
+            <tr><td><button class="action_button" id="save_button">Save!</button></td></tr>
             <tr><td>
                 <form action="/tutorials" method="GET">
-                <button id="quit_button" style="width:100%">Quit</button>
+                <button class="action_button" id="quit_button">Quit</button>
                 </form>
             </td></tr>
             <tr>
                 <td>
-                    <button id="reset_button">Reset</button>
+                    <button class="action_button" id="reset_button">Reset</button>
                 </td>
             </tr>
         </table>
