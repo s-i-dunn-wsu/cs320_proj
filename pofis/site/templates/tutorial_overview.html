@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Interactive Suite List</title>
-    <link rel="stylesheet", type="text/css", href="/styles/suite_overview.css">
+    <title>Interactive Tutorial List</title>
+    <link rel="stylesheet", type="text/css", href="/styles/tutorial_overview.css">
 </head>
 <body>
     <div class="mainbody">
@@ -17,11 +17,11 @@
                 <th>Reference Document</th>
                 <th>Status</th>
             </tr>
-            {% for id, suite, status, refdoc_href in suite_data %}
+            {% for id, tutorial, status, refdoc_href in tutorial_data %}
             <tr>
                 <td>{{ id }}</td>
                 <td>
-                    <a href="/suites/take_suite?suite_num={{ id }}">{{ suite }}</a>
+                    <a href="/tutorials/take_tutorial?tutorial_num={{ id }}">{{ tutorial }}</a>
                 </td>
                 <td>
                     {% if refdoc_href %}
