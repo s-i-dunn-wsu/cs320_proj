@@ -7,10 +7,6 @@ Generators
    :maxdepth: 2
    :caption: Contents:
 
-See iterators first
---------------------
-`Loop examples:`_.
-
 Motivation
 ------------
 
@@ -22,7 +18,7 @@ Local States
 
 The use of yield allows generators to save the state of its local variables and “pauses” between use next() call
 
-The code below, yields 1 then 2 with each call to next(). It then waits, saving its state in memory. 
+The code below, yields 1 then 2 with each call to next(). It then waits, saving its state in memory.
 
 .. code-block:: python
 
@@ -39,7 +35,8 @@ The code below, yields 1 then 2 with each call to next(). It then waits, saving 
 
 Loop examples
 ----------------
-Each time you loop through a generator, it requires a new generator object to be created to be used again. Both loops below have the same output.
+Each time you loop through a generator, it requires a new generator 
+object to be created to be used again. Both loops below have the same output.
 
 .. code-block:: python
 
@@ -62,9 +59,3 @@ See Also
 -----------
 
 .. links to pages within POFIS
-
-
-External References
----------------------
-
-.. links to sources outside of POFIS
