@@ -7,3 +7,6 @@ default:
 
 run_site:
 	/usr/bin/env python3 qls.py
+
+test:
+	/usr/bin/env python3 -m unittest discover -s tests

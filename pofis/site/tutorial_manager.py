@@ -58,10 +58,15 @@ class TutorialManager(object):
         Evaluates the usercode and responds with teh pass/fail data as JSON.
         """
         # Evaluate the user code (hopefully in a recoverable way)
+        from ..r_eval import UserCodeExecutor
+
+        t = TutorialFactory().get_tutorial(tutorial_id)
+        m, o, e = UserCodeExecutor().eval(user_code)
+        result, reason = t.evaluate_runtime(m, o, e)
 
         # Prepare response
-        eval_result = True
-        eval_reason = "Testing failure handling"
+        eval_result = result
+        eval_reason = reason
 
         # Note: should ensure user progress is updated according to eval_result
 

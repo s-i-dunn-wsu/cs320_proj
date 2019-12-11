@@ -50,13 +50,12 @@ for attr in {blacklist}:
 
 # It is now safe to attempt running the user's code.
 try:
+{indent}#the following `pass` prevents empty, or comment only, user-code from creating a syntax error.
+{indent}pass
 {user_code}
 except:
 {indent}raise
 finally:
-{indent}# Close logging handles
-{indent}sys.stderr.close()
-{indent}sys.stdout.close()
 {indent}# Restore things that were hidden away from the user.
 {indent}for attr in {blacklist}:
 {indent}{indent}globals()[attr] = globals()[f'!!{{attr}}!!']

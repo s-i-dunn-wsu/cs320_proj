@@ -14,6 +14,6 @@
 
 # To combine all necessary functionality (prepping the input script, executing it,
 # inspecting its output based on some adjustable criteria) we'll use the
-# UserCodeEvaluator (available in this namespace)
+# UserCodeExecutor (available in this namespace)
 
-from .uce import UserCodeEvaluator
+from .uce import UserCodeExecutor
