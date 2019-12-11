@@ -25,6 +25,8 @@
     "3": {
             "name": "Loops",
             "help_text": "This module teaches loops. Follow the pre-written comments for guidance.",
-            "criteria": []
+            "criteria": [],
+            "Refdoc_Href": "/refdocs/refdocs/loops.html"
+
     }
 }
