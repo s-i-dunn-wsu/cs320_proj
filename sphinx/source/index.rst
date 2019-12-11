@@ -14,7 +14,7 @@ Welcome to POFIS's documentation!
 
 Interactive session login: here_
 
-.. _here: /login
+.. _here: /tutorials
 
 Indices and tables
 ==================

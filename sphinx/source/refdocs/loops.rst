@@ -4,7 +4,7 @@ A loop statement allows us to execute a statement or group of statements multipl
 
 For Loops
 ------------
-'For' loops are traditionally used when you have a block of code which you want to repeat a fixed number of times. 
+'For' loops are traditionally used when you have a block of code which you want to repeat a fixed number of times.
 
 Syntax of for Loop
 --------------------
@@ -12,9 +12,9 @@ Syntax of for Loop
 
     for var in iterable:
 	Statement...
- 
 
-The **Statement** in the loop body are denoted by indentation, as with all Python control structures, and are executed once for each item in 
+
+The **Statement** in the loop body are denoted by indentation, as with all Python control structures, and are executed once for each item in
 **iterable**. The loop variable **var** takes on the value of the next element in **iterable** each time through the loop.
 
 .. code-block:: python
@@ -35,7 +35,7 @@ Syntax for While Loop
     while condition:
     statements
 
-As long as the "condition" is complied with all the statements in the body of the **while** loop are executed at least once. After each time the statements are 
+As long as the "condition" is complied with all the statements in the body of the **while** loop are executed at least once. After each time the statements are
 executed, the condition is re-evaluated.
 
 .. code-block:: python
@@ -66,3 +66,11 @@ Citations
 ----------
 https://www.tutorialspoint.com/python/python_loops.htm
 https://wiki.python.org/moin/ForLoop
+
+
+Tutorial
+----------------
+
+Please see our guided tutorial for this content here: tutorial_
+
+.. _tutorial: /tutorials/take_tutorial?tutorial_num=3
