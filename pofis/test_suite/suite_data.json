@@ -2,8 +2,7 @@
     "0": {
             "name": "Functions",
             "prog_lang": "text",
-            "criteria": [],
-            "Refdoc_Href": "/refdocs/refdocs/functions.html"
+            "criteria": []
         },
     "1": {
             "name": "Loops",
@@ -22,6 +21,3 @@
         }
 
 }
-
-
-

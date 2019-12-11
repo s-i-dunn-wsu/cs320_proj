@@ -1,0 +1,29 @@
+.mainbody {
+    left: 20%;
+    right: 20%;
+    background-color: white;
+    font: 20px arial, sans-serif;
+    font-weight: bolder;
+}
+
+.topmainbody {
+    left: 20%;
+    right: 20%;
+    background-color: #2980B9;
+    font: 30px arial, sans-serif;
+    color: #343131;
+}
+
+.status_complete {
+    color: green;
+}
+td,tr{
+    align-content: center;
+    height: 50px;
+    text-align: left;
+    width: 14em;
+}
+
+h4{
+    width: 30em;
+}

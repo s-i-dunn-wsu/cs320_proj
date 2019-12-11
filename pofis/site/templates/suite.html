@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interactive Suite</title>
+    <style type="text/css" media="screen">
+        #editor {
+            position: absolute;
+            top: 0;
+            right: 20%;
+            bottom: 0;
+            left: 0;
+        }
+        #helpbox {
+            color: white;
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 80%;
+            bottom: 0;
+            background-color: #2b2c30;
+            padding:1em;
+        }
+        #reset_button {
+            color: red;
+            width: 100%;
+        }
+    </style>
+
+    <!-- Set up AJAX nonseense -->
+    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var editor = ace.edit('editor');
+            $("#save_button").click(function(event) {
+                $.ajax({
+                    type: "POST",
+                    url: "/suites/save?suite_id={{test_id}}",
+                    data: {"user_code": editor.getValue()}
+                })
+                .done(function() {
+                    alert("Saved!");
+                });
+                event.preventDefault();
+            });
+            $("#reset_button").click(function() {
+                // Ideally this would prompt the user for an 'are you sure' here
+                $.ajax({
+                    type: "DELETE",
+                    url: "/suites/delete?suite_id={{test_id}}",
+                    success: function() {
+                        window.location.reload();
+                    }
+                });
+            });
+        });
+    </script>
+
+</head>
+<body>
+    <div id="editor">{{ testsuite.body }}</div>
+    <div id="helpbox">
+        <div>{{ testsuite.help_text }}</div>
+        <br>
+        <table align="center">
+            <tr>
+                <td><button id="submit_button">Submit!</button></td>
+                <td><button id="save_button">Save!</button></td>
+            </tr>
+        </table>
+        <table width="100%">
+            <tr><td>
+                <form action="/suites" method="GET">
+                <button id="quit_button" style="width:100%">Quit</button>
+                </form>
+            </td></tr>
+            <tr>
+                <td>
+                    <button id="reset_button">Reset</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <script src="/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+        var editor = ace.edit("editor");
+        editor.setTheme("ace/theme/monokai");
+        editor.session.setMode("ace/mode/{{testsuite.lang}}");
+    </script>
+
+</body>
+</html>
