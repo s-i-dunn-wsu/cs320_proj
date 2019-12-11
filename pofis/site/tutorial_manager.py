@@ -107,9 +107,10 @@ class TutorialManager(object):
                         result, reason = json.load(fd)
                         return result, reason
 
-        # if we got here, then the process is rogue.
-        p.terminate()
-        return False, "Process timed out."
+            # if we got here, then the process is rogue.
+            p.terminate()
+
+            return False, "Process timed out."
 
     def _do_eval(self, tmpdir, tutorial_obj, user_code):
         # import and create a UserCodeExecutor.

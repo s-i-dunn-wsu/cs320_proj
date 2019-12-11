@@ -17,7 +17,7 @@
     "2": {
             "name": "Defining and Calling Functions",
             "help_text": "This module teaches functions. Follow the pre-written comments.",
-            "criteria": ["my_func in module",
+            "criteria": ["'my_func' in module",
                          "callable(module['my_func'])",
                          "'hello world' in out.lower()"]
         },
