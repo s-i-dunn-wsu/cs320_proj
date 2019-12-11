@@ -48,3 +48,21 @@ class SuiteManager(object):
         """
         user_progress = ProgressTracker(cherrypy.request.login)
         user_progress.delete_progress(suite_id)
+
+    @cherrypy.expose
+    @cherrypy.tools.json_out()
+    def evaluate(self, suite_id, user_code):
+        """
+        Evaluates the usercode and responds with teh pass/fail data as JSON.
+        """
+        # Evaluate the user code (hopefully in a recoverable way)
+
+        # Prepare response
+        eval_result = True
+        eval_reason = "Testing failure handling"
+
+        # Note: should ensure user progress is updated according to eval_result
+
+
+        # Reply with repsonse.
+        return {'pass': eval_result, "reason": eval_reason}

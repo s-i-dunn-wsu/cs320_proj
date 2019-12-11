@@ -31,6 +31,27 @@
     <script type="text/javascript">
         $(document).ready(function() {
             var editor = ace.edit('editor');
+            $("#submit_button").click(function(event) {
+                $.ajax({
+                    type: "POST",
+                    url: "/suites/evaluate?suite_id={{test_id}}",
+                    data: {user_code: editor.getValue()},
+                    success: function(response_obj) {
+                        // should the server respond with a success code ([200, 300)),
+                        // this function is called. `response_obj` is the JS object sent back
+                        // by the server as JSON.
+                        if (!response_obj.pass) {
+                            alert("Your code did not pass :(\nReason: " + response_obj.reason);
+                        }
+                        else {
+                            alert("You passed!\nPress 'Ok' to return to tutorial list.");
+                            window.location.href = "/suites"
+                        }
+
+                    }
+                });
+                event.preventDefault();
+            });
             $("#save_button").click(function(event) {
                 $.ajax({
                     type: "POST",
