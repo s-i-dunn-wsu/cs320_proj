@@ -61,7 +61,7 @@ class TutorialManager(object):
         from ..r_eval import UserCodeExecutor
 
         t = TutorialFactory().get_tutorial(tutorial_id)
-        m, o, e = UserCodeExecutor().eval(user_code)
+        m, o, e = UserCodeExecutor().exec(user_code)
         result, reason = t.evaluate_runtime(m, o, e)
 
         # Prepare response

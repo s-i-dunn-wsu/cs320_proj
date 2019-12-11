@@ -19,7 +19,7 @@ class UserCodeExecutor(object):
         """
         return ('__import__', 'open', 'exec', 'eval', 'input')
 
-    def eval(self, user_code: str):
+    def exec(self, user_code: str):
         """
         :param str user_code: the code the user has entered into the browser-editor.
 
