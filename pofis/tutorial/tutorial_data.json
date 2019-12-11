@@ -1,27 +1,30 @@
 {
     "0": {
-            "name": "Functions",
-            "prog_lang": "text",
-            "criteria": [],
-            "Refdoc_Href": "/refdocs/refdocs/functions.html"
-        },
-    "1": {
-            "name": "Loops",
+            "name": "Demo",
             "help_text": "In this area we'll deliver prompts and helpful tips. Please read the content of this form carefully to proceed.",
             "criteria": []
         },
-    "2": {
-            "name": "Variables",
+    "1": {
+            "name": "Syntax and Basic Arithmetic",
             "criteria": [
                 "'x' in module",
-                "module['x'] == 5",
+                "module['x'] == 6",
                 "'y' in module",
-                "module['y'] == 7"
+                "module['y'] == 12"
             ],
             "Refdoc_Href": "/refdocs/refdocs/syntax.html"
-        }
-
+        },
+    "2": {
+            "name": "Defining and Calling Functions",
+            "help_text": "This module teaches functions. Follow the pre-written comments.",
+            "criteria": ["my_func in module",
+                         "callable(module['my_func'])",
+                         "'hello world' in out.lower()"],
+                         "Refdoc_Href": "/refdocs/refdocs/functions.html"
+        },
+    "3": {
+            "name": "Loops",
+            "help_text": "This module teaches loops. Follow the pre-written comments for guidance.",
+            "criteria": []
+    }
 }
-
-
-
