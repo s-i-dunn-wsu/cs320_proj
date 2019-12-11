@@ -62,14 +62,18 @@ class TutorialManager(object):
         Evaluates the usercode and responds with teh pass/fail data as JSON.
         """
         t = TutorialFactory().get_tutorial(tutorial_id)
+        user_progress = ProgressTracker(cherrypy.request.login)
+        # Lets go ahead and save progress as an implicit part of submitting.
+        user_progress.save_progress(tutorial_id, user_code)
 
         eval_result, eval_reason = self._handle_evaluation(t, user_code)
 
         # if eval_result is True then we should mark this off as passed on user progress.
         if eval_result == True:
             # load user progress obj.
-            user_progress = ProgressTracker(cherrypy.request.login)
+
             user_progress.mark_passed(tutorial_id)
+
 
         # Reply with repsonse.
         return {'pass': eval_result, "reason": eval_reason}
