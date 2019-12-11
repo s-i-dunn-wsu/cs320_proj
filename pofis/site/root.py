@@ -32,22 +32,7 @@ class Root(object):
         # The user successfully logged in (otherwise they'd have gotten a 401)
         # Lets just return them to where they were
         raise cherrypy.HTTPRedirect('/')
-
-    @cherrypy.expose
-    def suite(self, id=0):
-        """
-        """
-        if not isinstance(id, int):
-            id = int(id)
-
-        # Get the associated Tutorial object.
-        t = TutorialFactory().get_suite(id)
-
-        # Now get the template
-        template = self.env.get_template('suite.html')
-
-        return template.render(tutorial = t)
-    
+ 
     @cherrypy.expose
     def create_user(self, user_name = None, password = None, conf_password = None):
         """

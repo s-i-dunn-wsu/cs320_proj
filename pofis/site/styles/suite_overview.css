@@ -3,7 +3,7 @@
     right: 20%;
     background-color: white;
     font: 20px arial, sans-serif;
-
+    font-weight: bolder;
 }
 
 .topmainbody {
@@ -12,7 +12,6 @@
     background-color: #2980B9;
     font: 30px arial, sans-serif;
     color: #343131;
-
 }
 
 .status_complete {

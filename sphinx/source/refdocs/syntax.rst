@@ -70,3 +70,9 @@ External References
 .. _`Commenting Guide`: https://realpython.com/python-comments-guide/
 .. links to sources outside of POFIS
 
+Tutorial
+----------------
+
+Please see our guided tutorial for this content here: tutorial_
+
+.. _tutorial: /tutorials/take_tutorial?tutorial_num=1
