@@ -16,5 +16,6 @@ with Python.
    inheritance
    iterators
    generators
+   loops
    Type_Hinting
    zen_of_python
