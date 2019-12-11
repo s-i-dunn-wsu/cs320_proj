@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Interactive Tutorial</title>
+    <title>Interactive Suite</title>
     <style type="text/css" media="screen">
         #editor {
             position: absolute;
@@ -22,8 +22,6 @@
         }
         #reset_button {
             color: red;
-        }
-        .action_button {
             width: 100%;
         }
     </style>
@@ -33,31 +31,10 @@
     <script type="text/javascript">
         $(document).ready(function() {
             var editor = ace.edit('editor');
-            $("#submit_button").click(function(event) {
-                $.ajax({
-                    type: "POST",
-                    url: "/tutorials/evaluate?tutorial_id={{tutorial_id}}",
-                    data: {user_code: editor.getValue()},
-                    success: function(response_obj) {
-                        // should the server respond with a success code ([200, 300)),
-                        // this function is called. `response_obj` is the JS object sent back
-                        // by the server as JSON.
-                        if (!response_obj.pass) {
-                            alert("Your code did not pass :(\nReason: " + response_obj.reason);
-                        }
-                        else {
-                            alert("You passed!\nPress 'Ok' to return to tutorial list.");
-                            window.location.href = "/tutorials"
-                        }
-
-                    }
-                });
-                event.preventDefault();
-            });
             $("#save_button").click(function(event) {
                 $.ajax({
                     type: "POST",
-                    url: "/tutorials/save?tutorial_id={{tutorial_id}}",
+                    url: "/suites/save?suite_id={{test_id}}",
                     data: {"user_code": editor.getValue()}
                 })
                 .done(function() {
@@ -69,7 +46,7 @@
                 // Ideally this would prompt the user for an 'are you sure' here
                 $.ajax({
                     type: "DELETE",
-                    url: "/tutorials/delete?tutorial_id={{tutorial_id}}",
+                    url: "/suites/delete?suite_id={{test_id}}",
                     success: function() {
                         window.location.reload();
                     }
@@ -80,21 +57,25 @@
 
 </head>
 <body>
-    <div id="editor">{{ tutorial.body }}</div>
+    <div id="editor">{{ testsuite.body }}</div>
     <div id="helpbox">
-        <div>{{ tutorial.help_text }}</div>
+        <div>{{ testsuite.help_text }}</div>
         <br>
+        <table align="center">
+            <tr>
+                <td><button id="submit_button">Submit!</button></td>
+                <td><button id="save_button">Save!</button></td>
+            </tr>
+        </table>
         <table width="100%">
-            <tr><td><button class="action_button" id="submit_button">Submit!</button></td></tr>
-            <tr><td><button class="action_button" id="save_button">Save!</button></td></tr>
             <tr><td>
-                <form action="/tutorials" method="GET">
-                <button class="action_button" id="quit_button">Quit</button>
+                <form action="/suites" method="GET">
+                <button id="quit_button" style="width:100%">Quit</button>
                 </form>
             </td></tr>
             <tr>
                 <td>
-                    <button class="action_button" id="reset_button">Reset</button>
+                    <button id="reset_button">Reset</button>
                 </td>
             </tr>
         </table>
@@ -104,7 +85,7 @@
     <script>
         var editor = ace.edit("editor");
         editor.setTheme("ace/theme/monokai");
-        editor.session.setMode("ace/mode/{{tutorial.lang}}");
+        editor.session.setMode("ace/mode/{{testsuite.lang}}");
     </script>
 
 </body>

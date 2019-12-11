@@ -53,7 +53,8 @@ try:
 {indent}#the following `pass` prevents empty, or comment only, user-code from creating a syntax error.
 {indent}pass
 {user_code}
-except:
+except Exception as e:
+{indent}globals()['!!exception!!'] = e
 {indent}raise
 finally:
 {indent}# Restore things that were hidden away from the user.

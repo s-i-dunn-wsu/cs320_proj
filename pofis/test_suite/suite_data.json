@@ -1,0 +1,23 @@
+{
+    "0": {
+            "name": "Functions",
+            "prog_lang": "text",
+            "criteria": []
+        },
+    "1": {
+            "name": "Loops",
+            "help_text": "In this area we'll deliver prompts and helpful tips. Please read the content of this form carefully to proceed.",
+            "criteria": []
+        },
+    "2": {
+            "name": "Variables",
+            "criteria": [
+                "'x' in module",
+                "module['x'] == 5",
+                "'y' in module",
+                "module['y'] == 7"
+            ],
+            "Refdoc_Href": "/refdocs/refdocs/syntax.html"
+        }
+
+}

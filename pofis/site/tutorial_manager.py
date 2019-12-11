@@ -1,5 +1,9 @@
 
 import cherrypy
+import json
+import os
+import time
+import tempfile
 
 from ..tutorial.progress_tracker import ProgressTracker
 from ..tutorial.tutorial_factory import TutorialFactory
@@ -57,19 +61,69 @@ class TutorialManager(object):
         """
         Evaluates the usercode and responds with teh pass/fail data as JSON.
         """
-        # Evaluate the user code (hopefully in a recoverable way)
-        from ..r_eval import UserCodeExecutor
-
         t = TutorialFactory().get_tutorial(tutorial_id)
-        m, o, e = UserCodeExecutor().exec(user_code)
-        result, reason = t.evaluate_runtime(m, o, e)
 
-        # Prepare response
-        eval_result = result
-        eval_reason = reason
+        eval_result, eval_reason = self._handle_evaluation(t, user_code)
 
-        # Note: should ensure user progress is updated according to eval_result
-
+        # if eval_result is True then we should mark this off as passed on user progress.
+        if eval_result == True:
+            # load user progress obj.
+            user_progress = ProgressTracker(cherrypy.request.login)
+            user_progress.mark_passed(tutorial_id)
 
         # Reply with repsonse.
         return {'pass': eval_result, "reason": eval_reason}
+
+    def _handle_evaluation(self, tutorial, user_code):
+        """
+        Utilizes multiprocessing in order to safely sequester
+        the evaluation of user code.
+        This should provide multiple benefits:
+        - Prevents requests from coming in while the interpreter is janked up.
+        - Prevents infinite loops from really causing a real issue.
+        """
+        import multiprocessing as mp
+
+        # Should probably use a threadpool + job tokens that the client's
+        # page will then check asynchrounously for success,
+        # but we're at the last day and I'm frankly too lazy to engineer
+        # on the last day.
+        # So instead, for POC, we're just going to thread it out and wait up
+        # to 500ms to join it. If it takes longer than 500ms then we'll assume
+        # its looping.
+
+        # check for a join every 25ms. up to 20 times.
+        with tempfile.TemporaryDirectory() as tmpdir:
+            # kick the process off.
+            p = mp.Process(target=self._do_eval, args=(tmpdir, tutorial, user_code))
+            p.start()
+
+            for _ in range(20):
+                p.join(0.025)
+                if not p.is_alive():
+                    # join success.
+                    # fetch results and return them.
+                    with open(os.path.join(tmpdir, 'results.json')) as fd:
+                        result, reason = json.load(fd)
+                        return result, reason
+
+            # if we got here, then the process is rogue.
+            p.terminate()
+
+            return False, "Process timed out."
+
+    def _do_eval(self, tmpdir, tutorial_obj, user_code):
+        # import and create a UserCodeExecutor.
+        from ..r_eval.uce import UserCodeExecutor
+
+        # Execute user code.
+        m, o, e = UserCodeExecutor().exec(user_code)
+
+        # Run results through tutorial's criteria.
+        result, reason = tutorial_obj.evaluate_runtime(m, o, e)
+
+        # write results to disk.
+        with open(os.path.join(tmpdir, 'results.json'), 'w') as fd:
+            json.dump([result, reason], fd)
+
+        # Fin.
