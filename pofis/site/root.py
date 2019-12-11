@@ -6,11 +6,11 @@ import cherrypy
 from jinja2 import Environment, FileSystemLoader
 
 try:
-    from ..test_suite.tsf import TestSuiteFactory
-    from .suite_manager import SuiteManager
+    from ..tutorial.tutorial_factory import TutorialFactory
+    from .tutorial_manager import TutorialManager
 except ImportError:
-    from pofis.test_suite.tsf import TestSuiteFactory
-    from pofis.site.suite_manager import SuiteManager
+    from pofis.tutorial.tutorial_factory import TutorialFactory
+    from pofis.site.tutorial_manager import TutorialManager
 
 class Root(object):
     def __init__(self):
@@ -18,8 +18,8 @@ class Root(object):
         template_dir = os.path.join(here, 'templates')
         self.env = Environment(loader=FileSystemLoader(template_dir))
 
-        self.suites = SuiteManager(self.env)
-        self.suites.expose = True
+        self.tutorials = TutorialManager(self.env)
+        self.tutorials.expose = True
 
     @cherrypy.expose
     def index(self):
@@ -38,11 +38,11 @@ class Root(object):
         if not isinstance(id, int):
             id = int(id)
 
-        # Get the associated TestSuite object.
-        ts = TestSuiteFactory().get_suite(id)
+        # Get the associated Tutorial object.
+        t = TutorialFactory().get_suite(id)
 
         # Now get the template
         template = self.env.get_template('suite.html')
 
-        return template.render(testsuite = ts)
+        return template.render(tutorial = t)
 

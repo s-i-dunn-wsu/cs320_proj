@@ -1,17 +1,17 @@
 # Samuel Dunn
 # CS 320, Fall 2019
-# This file provides the TestSuite class.
+# This file provides the Tutorial class.
 
-class TestSuite(object):
+class Tutorial(object):
     """
-    TestSuite encapsulates all the data associated to, well, test suites given to users.
+    Tutorial encapsulates all the data associated to, well, test suites given to users.
     It supplies properties and methods necessary for populating tests with pre-text and,
     inspecting the user's evlauated code for correctness, and supplying strings for when
     a test fails.
     """
     def __init__(self):
         """
-        NOTE: do not use directly, use TestSuiteFactory instead.
+        NOTE: do not use directly, use TutorialFactory instead.
         """
         self._body = ""
         self._help_text = ""
@@ -22,7 +22,7 @@ class TestSuite(object):
     def evaluate_runtime(self, module, out, err):
         """
         Evaluates the contents of the given module (executed via runpy, probably)
-        against thist TestSuite's configured criteria.
+        against thist Tutorial's configured criteria.
 
         :returns: tuple, the first entry is pass/fail, the second is the cause of failure should the eval fail.
         """

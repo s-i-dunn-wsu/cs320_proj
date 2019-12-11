@@ -23,7 +23,7 @@ def get_cherrypy_config():
             'tools.auth_basic.realm': 'pofis',
             'tools.auth_basic.checkpassword': Authenticator().cp_authenticate,
             'tools.auth_basic.accept_charset': 'UTF-8'},
-        '/suites' : {
+        '/tutorials' : {
             'tools.auth_basic.on': True,
             'tools.auth_basic.realm': 'pofis',
             'tools.auth_basic.checkpassword': Authenticator().cp_authenticate,

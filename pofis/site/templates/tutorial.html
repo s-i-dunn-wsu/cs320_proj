@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Interactive Suite</title>
+    <title>Interactive Tutorial</title>
     <style type="text/css" media="screen">
         #editor {
             position: absolute;
@@ -31,10 +31,31 @@
     <script type="text/javascript">
         $(document).ready(function() {
             var editor = ace.edit('editor');
+            $("#submit_button").click(function(event) {
+                $.ajax({
+                    type: "POST",
+                    url: "/tutorials/evaluate?tutorial_id={{tutorial_id}}",
+                    data: {user_code: editor.getValue()},
+                    success: function(response_obj) {
+                        // should the server respond with a success code ([200, 300)),
+                        // this function is called. `response_obj` is the JS object sent back
+                        // by the server as JSON.
+                        if (!response_obj.pass) {
+                            alert("Your code did not pass :(\nReason: " + response_obj.reason);
+                        }
+                        else {
+                            alert("You passed!\nPress 'Ok' to return to tutorial list.");
+                            window.location.href = "/tutorials"
+                        }
+
+                    }
+                });
+                event.preventDefault();
+            });
             $("#save_button").click(function(event) {
                 $.ajax({
                     type: "POST",
-                    url: "/suites/save?suite_id={{test_id}}",
+                    url: "/tutorials/save?tutorial_id={{tutorial_id}}",
                     data: {"user_code": editor.getValue()}
                 })
                 .done(function() {
@@ -46,7 +67,7 @@
                 // Ideally this would prompt the user for an 'are you sure' here
                 $.ajax({
                     type: "DELETE",
-                    url: "/suites/delete?suite_id={{test_id}}",
+                    url: "/tutorials/delete?tutorial_id={{tutorial_id}}",
                     success: function() {
                         window.location.reload();
                     }
@@ -57,9 +78,9 @@
 
 </head>
 <body>
-    <div id="editor">{{ testsuite.body }}</div>
+    <div id="editor">{{ tutorial.body }}</div>
     <div id="helpbox">
-        <div>{{ testsuite.help_text }}</div>
+        <div>{{ tutorial.help_text }}</div>
         <br>
         <table align="center">
             <tr>
@@ -69,7 +90,7 @@
         </table>
         <table width="100%">
             <tr><td>
-                <form action="/suites" method="GET">
+                <form action="/tutorials" method="GET">
                 <button id="quit_button" style="width:100%">Quit</button>
                 </form>
             </td></tr>
@@ -85,7 +106,7 @@
     <script>
         var editor = ace.edit("editor");
         editor.setTheme("ace/theme/monokai");
-        editor.session.setMode("ace/mode/{{testsuite.lang}}");
+        editor.session.setMode("ace/mode/{{tutorial.lang}}");
     </script>
 
 </body>

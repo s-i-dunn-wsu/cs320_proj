@@ -2,9 +2,9 @@
 # CS 320, Fall 2019
 import sys
 
-class UserCodeEvaluator(object):
+class UserCodeExecutor(object):
     """
-    UserCodeEvaluators are responsible for, surprise, evaluating user code
+    UserCodeExecutors are responsible for, surprise, evaluating user code
     in a restricted - and server safe - way.
     """
     def __init__(self):
@@ -19,7 +19,7 @@ class UserCodeEvaluator(object):
         """
         return ('__import__', 'open', 'exec', 'eval', 'input')
 
-    def eval(self, user_code: str):
+    def exec(self, user_code: str):
         """
         :param str user_code: the code the user has entered into the browser-editor.
 
@@ -42,6 +42,7 @@ class UserCodeEvaluator(object):
         here = os.path.dirname(os.path.abspath(__file__))
         with open(os.path.join(here, 'safe_eval.tmpl')) as fd:
             template = fd.read()
+
         # get a temp dir to put code output files in.
         with tempfile.TemporaryDirectory() as td:
             out_file = os.path.join(td, 'out')
@@ -57,6 +58,16 @@ class UserCodeEvaluator(object):
             # Run the code with runpy to evaluate the content
             with _UserSpaceContext():
                 module_data = runpy.run_path(code_path)
+
+            # run through and restore everythign again, because shits whack.
+            sys.stderr = stderr
+            sys.stdout = stdout
+
+            for k, v in to_restore.items():
+                try:
+                    __builtins__[k] = v
+                except Exception:
+                    setattr(__builtins__, k, v)
 
             # gather output file content:
             with open(out_file) as fd:
@@ -93,15 +104,19 @@ class _UserSpaceContext(object):
         self._builtins_state = {k: v for k, v in __builtins__.items()}
 
     def __exit__(self, *args, **kwargs):
-        # this part seems weird, and it is,
-        # but even though the code is present in the safe_eval template
-        # these don't seem to be closed properly:
-        sys.stdout.close()
-        sys.stderr.close()
+        if sys.stdout != self._stdout:
+            sys.stdout.close()
+            sys.stdout = self._stdout
+        if sys.stderr != self._stderr:
+            sys.stderr.close()
+            sys.stderr = self._stderr
 
         sys.stdout = self._stdout
         sys.stderr = self._stderr
         sys.stdin = self._stdin
 
         for k, v in self._builtins_state.items():
-            __builtins__[k] = v
+            try:
+                __builtins__[k] = v
+            except Exception:
+                setattr(__builtins__, k, v)

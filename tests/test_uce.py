@@ -4,7 +4,7 @@
 import unittest
 import os
 import sys
-from pofis.r_eval.uce import UserCodeEvaluator
+from pofis.r_eval.uce import UserCodeExecutor
 
 # this helps a test case do the right thing:
 ground_truth_builtins = {k: v for k, v in __builtins__.items()}
@@ -15,20 +15,20 @@ class UCETests(unittest.TestCase):
 
     def test_construction(self):
         """
-        Tests to ensure that UserCodeEvaluator can construct
+        Tests to ensure that UserCodeExecutor can construct
         """
-        UserCodeEvaluator()
+        UserCodeExecutor()
 
     def test_runs_script(self):
         """
-        Tests that UCE evaluates and returns the expected module data
+        Tests that UCE executes and returns the expected module data
         """
         here = os.path.dirname(os.path.abspath(__file__))
         with open(os.path.join(here, 'example_script.txt')) as fd:
             user_code = fd.read()
 
-        uce = UserCodeEvaluator()
-        module, output, error = uce.eval(user_code)
+        uce = UserCodeExecutor()
+        module, output, error = uce.exec(user_code)
 
         self.assertEqual('foo was called\n', output)
 
@@ -49,8 +49,8 @@ class UCETests(unittest.TestCase):
         with open(os.path.join(here, 'example_script.txt')) as fd:
             user_code = fd.read()
 
-        uce = UserCodeEvaluator()
-        module, output, error = uce.eval(user_code)
+        uce = UserCodeExecutor()
+        module, output, error = uce.exec(user_code)
 
         # now check sys.stderr, sys.stdout and all items in __builtins__
         self.assertEqual(sys.stdout, stdout, "stdout is restored")
