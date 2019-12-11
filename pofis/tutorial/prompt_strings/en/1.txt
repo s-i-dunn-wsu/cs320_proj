@@ -1,4 +1,25 @@
-# Welcome to POFIS!
+# This module will help you lean basic syntax and arithmetic.
+# These lines are comment lines. In Python the '#' symbol starts a comment.
 
-# This is just an example suite to help you get used to the interface.
-# To continue, press the "Submit code" button over here ---->
+# The following line shows basic variable assignment.
+x = 1
+# Variables are used to store data.
+
+# You can perform simple arithmetic on literals (such as the number 1)
+# or on variables.
+x = x + 2
+
+# Now try adding 3 to x.
+
+
+# You can create new variables from the result of arithmetic.
+# Try creating a new variable, y, by assigning the result of x + x to it.
+
+# You're not limited to simple addition, other operators include:
+# -  : subtraction
+# *  : multiplication
+# /  : Floating point division
+# // : Integral division
+# %  : modulo arithmetic
+
+# When you have all of these finished, press the 'submit' button.

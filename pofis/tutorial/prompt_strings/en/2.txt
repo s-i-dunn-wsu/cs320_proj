@@ -1,0 +1,25 @@
+# This module walks you through defining and calling functions.
+
+# Functions encapsulate behavior for multiple uses.
+
+# Here is an example of a function that adds 3 to whatever
+# input it is given
+def add_3(x):
+    return x + 3
+
+# the 'def' tells the python interpreter that you're
+# defining a new function.
+
+# Please define a new function 'my_func' that
+# takes a singular input and returns its square.
+# Please recall that consistent indentation is important to the Python interpreter
+
+# your code here
+
+# Python provides several builtin functions, such as the 'print' function.
+# print takes its input and prints the string form of it to stdout.
+# Please try printing 'Hello World' now.
+
+# your code here
+
+# When finished please press the submit button to the right.
