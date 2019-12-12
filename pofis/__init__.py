@@ -10,8 +10,11 @@ def main():
     import os
     from .site import Root, get_cherrypy_config
 
-    cherrypy.tree.mount(Root(), '/', config=get_cherrypy_config())
+    root = Root()
+
+    cherrypy.tree.mount(root, '/', config=get_cherrypy_config())
     cherrypy.config.update({'server.socket_host': '0.0.0.0'})
+    cherrypy.config.update({'error_page.401': root.handle_401})
 
     # for development purposes there are a few extra files
     # we want cherrypy to autoreload when changed:

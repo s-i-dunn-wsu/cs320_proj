@@ -34,7 +34,7 @@ class Root(object):
         raise cherrypy.HTTPRedirect('/')
 
     @cherrypy.expose
-    def create_user(self, user_name = None, password = None, conf_password = None):
+    def create_user(self, user_name = None, password = None, conf_password = None, traceback = None):
         """
         """
         # starting page
@@ -68,3 +68,7 @@ class Root(object):
         # if everything works out
         Authenticator().create_user(user_name, password)
         raise cherrypy.HTTPRedirect('/')
+
+    @cherrypy.expose
+    def handle_401(self, status, message, traceback, version):
+        return self.env.get_template("401.html").render()
