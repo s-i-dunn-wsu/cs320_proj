@@ -32,7 +32,7 @@ class Root(object):
         # The user successfully logged in (otherwise they'd have gotten a 401)
         # Lets just return them to where they were
         raise cherrypy.HTTPRedirect('/')
- 
+
     @cherrypy.expose
     def create_user(self, user_name = None, password = None, conf_password = None):
         """
@@ -41,27 +41,30 @@ class Root(object):
         if not user_name and not password and not conf_password:
             template = self.env.get_template('create_user.html')
             return template.render()
+
         else: # check user input
             template = self.env.get_template('create_user.html')
 
-            if user_name is None and password is None and conf_password is None:
-                return template.render()            
-            
             # check if passwords entered match
             if password == conf_password:
                 # password not correct format
-                if len(password) < 6 or len(password) > 10 and any(password.isdigit()):
+                if len(password) < 6 or len(password) > 10:
                     return template.render(username = user_name, success = False, reason = "Password must be between 6 to 10 digits and include 1 number")
-                elif user_name is None: 
+
+                if not any([x.isdigit() for x in password]):
+                    return template.render(username = user_name, success = False, reason = "Password must be between 6 to 10 digits and include 1 number")
+
+                if user_name is None:
+                    # A user name is required
                     return template.render(success = False, reason = "No username entered")
-                elif not Authenticator().check_for_user_exist(user_name):
-                    return template.render(username = user_name, success = True, reason = "")
-                else:
-                    # the username is taken.
+
+                if Authenticator().check_for_user_exist(user_name):
                     return template.render(username = user_name, success = False, reason = "Username is taken")
+
             else:
+                # Password mismatch
                 return template.render(username = user_name, success = False, reason = "Passwords do not match")
-        
+
         # if everything works out
         Authenticator().create_user(user_name, password)
         raise cherrypy.HTTPRedirect('/')

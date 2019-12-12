@@ -12,9 +12,14 @@ Welcome to POFIS's documentation!
 
    refdocs/index
 
+`Create user`_ account here
+
+.. _`Create user`: /create_user
+
 Interactive session login: here_
 
 .. _here: /tutorials
+
 
 Indices and tables
 ==================
