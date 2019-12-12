@@ -112,7 +112,7 @@ def main():
     # precompute package_data args (to reduce clutter)
     pofis_site_data = find_all_items_in_dir('pofis.site', 'ace-builds') + find_all_items_in_dir('pofis.site', 'refdocs') +\
                       find_all_items_in_dir('pofis.site', 'styles') + find_all_items_in_dir('pofis.site', 'templates')
-    pofis_test_suite_data = find_all_items_in_dir('pofis.test_suite', 'prompt_strings', lambda p: p.endswith('.txt')) + ["*.json"]
+    pofis_tutorial_data = find_all_items_in_dir('pofis.tutorial', 'prompt_strings', lambda p: p.endswith('.txt')) + ["*.json"]
 
 
     # 3) run setuptools.setup
@@ -125,7 +125,7 @@ def main():
         install_requires=dependencies,
         setup_requires=("wheel",),
         entry_points={'console_scripts': ['POFIS_quicklaunch=pofis:main']},
-        package_data={'pofis.test_suite': pofis_test_suite_data,
+        package_data={'pofis.tutorial': pofis_tutorial_data,
                       'pofis.site': pofis_site_data
         })
 
