@@ -8,4 +8,4 @@ POFIS is lesson suite for bringing incoming students, transfer or freshmen, up t
 with the Python programming language.
 
 # Current Phase
-design phase
+completed phase
