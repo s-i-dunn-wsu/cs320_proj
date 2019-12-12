@@ -5,6 +5,7 @@
 .status_complete {
     color: green;
 }
+
 td {
     align-content: center;
 }
@@ -37,6 +38,7 @@ input[type=submit] {
     justify-content: center;
     padding: 20px;
     padding-bottom: 0px;
+    font: 20px "Lato";
 }
 
 .container2 {
@@ -44,6 +46,7 @@ input[type=submit] {
     padding: 20px;
     width: 400px;
     height: 350px;
-    margin: 25px auto 8px;    
+    margin: 25px auto 8px;   
+    font-family: "Lato"; 
 }
 

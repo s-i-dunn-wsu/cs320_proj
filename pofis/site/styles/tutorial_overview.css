@@ -1,23 +1,28 @@
+.home {
+    font: 20px "Lato";
+}
+
 .mainbody {
     left: 20%;
     right: 20%;
     background-color: white;
-    font: 20px arial, sans-serif;
-
+    font: 20px "Lato";
+    align-content: center;
 }
 
 .topmainbody {
     left: 20%;
     right: 20%;
-    background-color: #2980B9;
-    font: 30px arial, sans-serif;
-    color: #343131;
-
+    background-color: #297FB8;
+    font: 30px "Lato";
+    color: black;
+    height: 200px;
 }
 
 .status_complete {
     color: green;
 }
+
 td,tr{
     align-content: center;
     height: 50px;

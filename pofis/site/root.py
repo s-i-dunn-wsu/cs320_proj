@@ -59,7 +59,7 @@ class Root(object):
                     return template.render(success = False, reason = "No username entered")
 
                 if Authenticator().check_for_user_exist(user_name):
-                    return template.render(username = user_name, success = False, reason = "Username is taken")
+                    return template.render(username = user_name, success = False, reason = "Names taken")
 
             else:
                 # Password mismatch

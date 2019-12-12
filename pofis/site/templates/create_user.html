@@ -10,24 +10,23 @@
     <div class="container1">
         <table width="100%" align="center">
             <tr>
-                <td align="left"><a href="/">Back to Home</a></td>
+                <td align="left" style="font-family:'Lato'"><a href="/">Back to Home</a></td>
             </tr>
         </table>
     </div>
     <div class="mainbody">
-        <table align="center">
-            <tr>
-                <td>
-                    <h1>POFIS</h1>
-                    <h5>Python Onboarding for Incoming Students</h5>
-                </td>
-            </tr>
-        </table>
+        <div class="row" align="center">
+            <h1>POFIS</h1>
+        </div>
+        <div class="row" align="center">
+            <h5>Python Onboarding for Incoming Students</h5>
+        </div>
         <div class="container2">
             <form align="center" method="POST">
                 <center>
                     <p>Create an Account</p>
                 </center>
+                <div class="row"></div>
                 <!-- this needs to turn into a form -->
                 <label for="user_name"> User Name</label>
                 <input type="text" id="user_name" name="user_name">
@@ -40,7 +39,7 @@
                 </div>
                 <!-- if: password doesn't match, then show an "error" div-->
                 {% if success == False %}
-                 <div style="color: red;">{{reason}}</div>
+                <div style="color: red;">{{reason}}</div>
                 {% endif %}
             </form>
         </div>
